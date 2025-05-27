@@ -10,7 +10,9 @@ interface ProductPageProps {
 
 export async function generateStaticParams() {
   return data.products.map((product) => ({
-    slug: product.slug,
+    params: {
+      slug: product.slug,
+    },
   }))
 }
 
@@ -36,15 +38,14 @@ export default async function ProductDetails({ params }: ProductPageProps) {
               width: '100%',
               height: 'auto',
             }}
-          ></Image>
+          />
         </div>
         <div>
           <ul className="space-y-4">
             <li>
               <h1 className="text-xl">{product.name}</h1>
             </li>
-
-            <li> {product.brand}</li>
+            <li>{product.brand}</li>
             <li>
               <div className="divider"></div>
             </li>
@@ -54,7 +55,7 @@ export default async function ProductDetails({ params }: ProductPageProps) {
           </ul>
         </div>
         <div>
-          <div className="card  bg-base-300 shadow-xl mt-3 md:mt-0">
+          <div className="card bg-base-300 shadow-xl mt-3 md:mt-0">
             <div className="card-body">
               <div className="mb-2 flex justify-between">
                 <div>Price</div>
