@@ -10,17 +10,14 @@ interface ProductPageProps {
 
 export async function generateStaticParams() {
   return data.products.map((product) => ({
-    params: {
-      slug: product.slug,
-    },
+    slug: product.slug,
   }))
 }
 
 export default async function ProductDetails({ params }: ProductPageProps) {
   const product = data.products.find((x) => x.slug === params.slug)
-  if (!product) {
-    return <div>Product not found</div>
-  }
+
+  if (!product) return <div>Product not found</div>
   return (
     <>
       <div className="my-2">
