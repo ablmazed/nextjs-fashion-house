@@ -1,5 +1,5 @@
 import ProductItem from '@/components/products/ProductItem'
-import products from '@/lib/data'
+import data from '@/lib/data'
 
 export default async function Home() {
   return (
@@ -7,7 +7,7 @@ export default async function Home() {
       <h2 className="text-2xl py-2">Latest Products Here</h2>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        {products.map((product) => (
+        {data.products.map((product) => (
           <ProductItem key={product.slug} product={product} />
         ))}
       </div>
