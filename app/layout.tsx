@@ -25,7 +25,6 @@ export default function RootLayout({
             <p>Copyright © 2023 - All right reserved by Next Amazona V2</p>
           </footer>
         </div>
-        {children}
       </body>
     </html>
   )
