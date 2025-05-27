@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default async function ProductDetails({
-  params,
-}: {
-  params: { slug: string }
-}) {
+export default async function ProductDetails() {
+  //   {
+  //   params,
+  // }: {
+  //   params: { slug: string }
+  // }
   const data = {
     products: [
       {
@@ -86,7 +87,8 @@ export default async function ProductDetails({
       },
     ],
   }
-  const product = data.products.find((x) => x.slug === params.slug)
+  const product = data.products.find((x) => x.slug)
+  console.log(product)
   if (!product) {
     return <div>Product not found</div>
   }
