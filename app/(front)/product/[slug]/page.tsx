@@ -8,15 +8,10 @@ interface ProductPageProps {
   }
 }
 
-export async function generateMetadata({ params }: ProductPageProps) {
-  const product = data.products.find((x) => x.slug === params.slug)
-  if (!product) {
-    return { title: 'Product not found' }
-  }
-  return {
-    title: product.name,
-    description: product.description,
-  }
+export async function generateStaticParams() {
+  return data.products.map((product) => ({
+    slug: product.slug,
+  }))
 }
 
 export default async function ProductDetails({ params }: ProductPageProps) {
