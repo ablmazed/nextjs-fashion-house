@@ -1,3 +1,5 @@
+'use server'
+
 import data from '@/lib/data'
 import Image from 'next/image'
 import Link from 'next/link'
