@@ -1,10 +1,14 @@
 import products from '@/lib/data'
-import { Product } from '@/lib/models/ProductModel'
 import Image from 'next/image'
-import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 
-export default function ProductDetails({ product }: { product: Product }) {
+export default function ProductDetails({
+  productdata,
+}: {
+  productdata: { slug: string }
+}) {
+  const slug = productdata?.slug
+  const product = products.find((p) => p.slug === slug)
   if (!product) return <div>Product not found</div>
 
   return (
@@ -26,28 +30,4 @@ export default function ProductDetails({ product }: { product: Product }) {
       </div>
     </div>
   )
-}
-
-// Generate paths for all products
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = products.map((product) => ({
-    params: { slug: product.slug },
-  }))
-
-  return {
-    paths,
-    fallback: false,
-  }
-}
-
-// Fetch product based on slug
-export const getStaticProps: GetStaticProps = async (context) => {
-  const slug = context.params?.slug
-  const product = products.find((p) => p.slug === slug) || null
-
-  return {
-    props: {
-      product,
-    },
-  }
 }
