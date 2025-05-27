@@ -1,14 +1,29 @@
-'use server'
-
 import data from '@/lib/data'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default async function ProductDetails({
+interface ProductPageProps {
+  params: {
+    slug: string
+  }
+}
+
+export async function generateMetadata({
   params,
 }: {
   params: { slug: string }
 }) {
+  const product = data.products.find((x) => x.slug === params.slug)
+  if (!product) {
+    return { title: 'Product not found' }
+  }
+  return {
+    title: product.name,
+    description: product.description,
+  }
+}
+
+export default async function ProductDetails({ params }: ProductPageProps) {
   const product = data.products.find((x) => x.slug === params.slug)
   if (!product) {
     return <div>Product not found</div>
