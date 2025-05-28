@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import data from '@/lib/data'
 import Image from 'next/image'
 import Link from 'next/link'
+import AddToCart from '@/components/product/AddToCart'
 
 export const metadata: Metadata = {
   title: 'Fashion-House',
@@ -66,6 +67,16 @@ export default async function ProductDetails({ params }: Props) {
                 <div>Status</div>
                 <div>
                   {product.countInStock > 0 ? 'In stock' : 'Unavailable'}
+                </div>
+                <div>
+                  {product.countInStock !== 0 && (
+                    <div className="card-actions justify-center">
+                      {/* <AddToCart item={product} /> */}
+                      <AddToCart
+                        item={{ ...product, qty: 0, color: '', size: '' }}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
