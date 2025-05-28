@@ -7,8 +7,10 @@ export default async function ProductDetails({
 }: {
   params: { slug: string }
 }) {
-  const product = data.products.find((x) => x.slug == params.slug)
-  console.log(product)
+  console.log('params.slug show', params.slug)
+
+  const product = data.products.find((x) => x.slug === params.slug)
+
   if (!product) {
     return <div>Product not found</div>
   }
