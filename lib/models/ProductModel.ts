@@ -1,22 +1,5 @@
 import mongoose from 'mongoose'
 
-export type Product = {
-  _id?: string
-  name: string
-  slug: string
-  image: string
-  banner?: string
-  price: number
-  brand: string
-  description: string
-  category: string
-  rating: number
-  numReviews: number
-  countInStock: number
-  colors?: []
-  sizes?: []
-}
-
 const productSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -39,4 +22,21 @@ const productSchema = new mongoose.Schema(
 
 const ProductModel =
   mongoose.models.Product || mongoose.model('Product', productSchema)
+
 export default ProductModel
+
+export type Product = {
+  _id?: string
+  name: string
+  slug: string
+  category: string
+  image: string
+  banner?: string
+  price: number
+  brand: string
+  description: string
+  rating: number
+  numReviews: number
+  countInStock: number
+  isFeatured: boolean
+}

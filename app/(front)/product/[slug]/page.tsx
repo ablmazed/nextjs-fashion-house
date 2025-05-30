@@ -1,13 +1,7 @@
-import type { Metadata } from 'next'
-import data from '@/lib/data'
 import Image from 'next/image'
 import Link from 'next/link'
 import AddToCart from '@/components/product/AddToCart'
-
-export const metadata: Metadata = {
-  title: 'Fashion-House',
-  description: 'Fashion House Description',
-}
+import productService from '@/lib/services/productService'
 
 type Props = {
   params: Promise<{
@@ -15,9 +9,22 @@ type Props = {
   }>
 }
 
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params
+  const product = await productService.getBySlug(slug)
+  if (!product) {
+    return { title: 'Product not found' }
+  }
+  return {
+    title: product.name,
+    description: product.description,
+  }
+}
+
 export default async function ProductDetails({ params }: Props) {
   const { slug } = await params
-  const product = data.products.find((x) => x.slug === slug)
+
+  const product = await productService.getBySlug(slug)
 
   if (!product) {
     return <div>Product not found</div>
