@@ -1,23 +1,4 @@
 import mongoose from 'mongoose'
-
-export type OrderItem = {
-  name: string
-  slug: string
-  qty: number
-  image: string
-  price: number
-  color: string
-  size: string
-}
-
-export type ShippingAddress = {
-  fullName: string
-  address: string
-  city: string
-  postalCode: string
-  country: string
-}
-
 const orderSchema = new mongoose.Schema(
   {
     user: {
@@ -61,7 +42,6 @@ const orderSchema = new mongoose.Schema(
     timestamps: true,
   }
 )
-
 const OrderModel = mongoose.models.Order || mongoose.model('Order', orderSchema)
 export default OrderModel
 
@@ -87,4 +67,20 @@ export type Order = {
   paidAt?: string
   deliveredAt?: string
   createdAt: string
+}
+export type OrderItem = {
+  name: string
+  slug: string
+  qty: number
+  image: string
+  price: number
+  color: string
+  size: string
+}
+export type ShippingAddress = {
+  fullName: string
+  address: string
+  city: string
+  postalCode: string
+  country: string
 }

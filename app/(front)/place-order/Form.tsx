@@ -1,11 +1,11 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import useCartService from '@/lib/hooks/useCartStore'
 import { CheckoutSteps } from '@/components/CheckoutSteps'
 import Link from 'next/link'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 import useSWRMutation from 'swr/mutation'
 
 const Form = () => {
@@ -23,7 +23,7 @@ const Form = () => {
 
   const { trigger: placeOrder, isMutating: isPlacing } = useSWRMutation(
     `/api/orders/mine`,
-    async () => {
+    async (url) => {
       const res = await fetch('/api/orders', {
         method: 'POST',
         headers: {
@@ -37,6 +37,7 @@ const Form = () => {
           taxPrice,
           shippingPrice,
           totalPrice,
+          url,
         }),
       })
       const data = await res.json()
@@ -185,7 +186,7 @@ const Form = () => {
                     {isPlacing && (
                       <span className="loading loading-spinner"></span>
                     )}
-                    Place Orders
+                    Place Order
                   </button>
                 </li>
               </ul>
