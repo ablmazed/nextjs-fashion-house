@@ -13,11 +13,12 @@ export async function generateMetadata({ params }: Props) {
   }
 }
 
-export default function OrderHistory({ params }: { params: { id: string } }) {
+export default async function OrderHistory({ params }: Props) {
+  const { id } = await params
   return (
     <OrderDetails
       paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}
-      orderId={params.id}
+      orderId={id}
     />
   )
 }
