@@ -30,6 +30,7 @@ export const POST = auth(async (req: any) => {
     )
   }
   const { user } = req.auth
+
   try {
     const payload = await req.json()
     await dbConnect()
@@ -42,7 +43,9 @@ export const POST = auth(async (req: any) => {
     const dbOrderItems = payload.items.map((x: { _id: string }) => ({
       ...x,
       product: x._id,
-      price: dbProductPrices.find((x) => x._id === x._id).price,
+      // price: dbProductPrices.find((x) => x._id === x._id).price,
+      price: dbProductPrices.find((p) => String(p._id) === String(x._id))
+        ?.price,
       _id: undefined,
     }))
 
