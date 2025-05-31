@@ -1,8 +1,15 @@
 import OrderDetails from './OrderDetails'
 
-export function generateMetadata({ params }: { params: { id: string } }) {
+type Props = {
+  params: Promise<{
+    id: string
+  }>
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { id } = await params
   return {
-    title: `Order ${params.id}`,
+    title: `Order ${id}`,
   }
 }
 
