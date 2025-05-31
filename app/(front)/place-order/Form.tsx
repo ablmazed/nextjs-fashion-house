@@ -185,7 +185,7 @@ const Form = () => {
                     {isPlacing && (
                       <span className="loading loading-spinner"></span>
                     )}
-                    Place Order
+                    Place Orders
                   </button>
                 </li>
               </ul>
