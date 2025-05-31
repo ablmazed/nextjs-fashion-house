@@ -6,7 +6,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: process.env.NEXT_PUBLIC_APP_NAME || 'Next Amazona V2',
+  title: process.env.NEXT_PUBLIC_APP_NAME || 'Fashion-House',
   description:
     process.env.NEXT_PUBLIC_APP_DESC ||
     'Nextjs, Server components, Next auth, daisyui, zustand',

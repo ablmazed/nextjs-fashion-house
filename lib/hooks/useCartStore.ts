@@ -1,14 +1,31 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
 import { round2 } from '../utils'
-import { OrderItem } from '../models/OrderModel'
+import { OrderItem, ShippingAddress } from '../models/OrderModel'
+import { persist } from 'zustand/middleware'
 
+type Cart = {
+  items: OrderItem[]
+  itemsPrice: number
+  taxPrice: number
+  shippingPrice: number
+  totalPrice: number
+  paymentMethod: string
+  shippingAddress: ShippingAddress
+}
 const initialState: Cart = {
   items: [],
   itemsPrice: 0,
   taxPrice: 0,
   shippingPrice: 0,
   totalPrice: 0,
+  paymentMethod: 'PayPal',
+  shippingAddress: {
+    fullName: '',
+    address: '',
+    city: '',
+    postalCode: '',
+    country: '',
+  },
 }
 
 export const cartStore = create<Cart>()(
@@ -18,14 +35,23 @@ export const cartStore = create<Cart>()(
 )
 
 export default function useCartService() {
-  const { items, itemsPrice, taxPrice, shippingPrice, totalPrice } = cartStore()
-
+  const {
+    items,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+    paymentMethod,
+    shippingAddress,
+  } = cartStore()
   return {
     items,
     itemsPrice,
     taxPrice,
     shippingPrice,
     totalPrice,
+    paymentMethod,
+    shippingAddress,
     increase: (item: OrderItem) => {
       const exist = items.find((x) => x.slug === item.slug)
       const updatedCartItems = exist
@@ -33,7 +59,6 @@ export default function useCartService() {
             x.slug === item.slug ? { ...exist, qty: exist.qty + 1 } : x
           )
         : [...items, { ...item, qty: 1 }]
-
       const { itemsPrice, shippingPrice, taxPrice, totalPrice } =
         calcPrice(updatedCartItems)
       cartStore.setState({
@@ -51,7 +76,6 @@ export default function useCartService() {
         exist.qty === 1
           ? items.filter((x: OrderItem) => x.slug !== item.slug)
           : items.map((x) => (item.slug ? { ...exist, qty: exist.qty - 1 } : x))
-
       const { itemsPrice, shippingPrice, taxPrice, totalPrice } =
         calcPrice(updatedCartItems)
       cartStore.setState({
@@ -62,7 +86,21 @@ export default function useCartService() {
         totalPrice,
       })
     },
-
+    saveShippingAddrress: (shippingAddress: ShippingAddress) => {
+      cartStore.setState({
+        shippingAddress,
+      })
+    },
+    savePaymentMethod: (paymentMethod: string) => {
+      cartStore.setState({
+        paymentMethod,
+      })
+    },
+    clear: () => {
+      cartStore.setState({
+        items: [],
+      })
+    },
     init: () => cartStore.setState(initialState),
   }
 }
@@ -75,12 +113,4 @@ const calcPrice = (items: OrderItem[]) => {
     taxPrice = round2(Number(0.15 * itemsPrice)),
     totalPrice = round2(itemsPrice + shippingPrice + taxPrice)
   return { itemsPrice, shippingPrice, taxPrice, totalPrice }
-}
-
-type Cart = {
-  items: OrderItem[]
-  itemsPrice: number
-  taxPrice: number
-  shippingPrice: number
-  totalPrice: number
 }
