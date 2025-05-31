@@ -1,4 +1,4 @@
-import OrderDetailsPage from './OrderDetails'
+import OrderDetails from './OrderDetails'
 
 export function generateMetadata({ params }: { params: { id: string } }) {
   return {
