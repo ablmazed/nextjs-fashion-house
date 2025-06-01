@@ -6,7 +6,7 @@
   themes: light --default, dark --prefersdark;
 }
 
-/* @plugin "daisyui/theme" {
+@plugin "daisyui/theme" {
   name: 'dark';
   default: false;
   prefersdark: false;
@@ -39,7 +39,7 @@
   --border: 1px;
   --depth: 1;
   --noise: 0;
-} */
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
