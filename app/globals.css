@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-
+/* 
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark;
 }
@@ -38,7 +38,7 @@
   --border: 1px;
   --depth: 1;
   --noise: 0;
-}
+} */
 
 :root {
   --foreground-rgb: 0, 0, 0;
