@@ -1,36 +1,21 @@
+// tailwind.config.ts
 import type { Config } from 'tailwindcss'
 import daisyui from 'daisyui'
 
 const config: Config = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
   ],
-  plugins: [daisyui],
-  darkMode: 'class',
-  daisyui: {
-    themes: [
-      {
-        light: {
-          primary: '#fbbf24',
-          secondary: '#f472b6',
-          accent: '#37cdbe',
-          neutral: '#3d4451',
-          'base-100': '#ffffff',
-        },
-        dark: {
-          primary: '#fbbf24',
-          secondary: '#f472b6',
-          accent: '#37cdbe',
-          neutral: '#3d4451',
-          'base-100': '#1f2937',
-        },
-      },
-    ],
+  theme: {
+    extend: {},
   },
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any
+  plugins: [daisyui], // fixed: use an array here
+  // @ts-expect-error - daisyui is handled by the plugin, not tailwind itself
+  daisyui: {
+    themes: ['light', 'dark', 'cupcake', 'bumblebee'], // ইচ্ছেমত themes
+  },
+}
 
 export default config
