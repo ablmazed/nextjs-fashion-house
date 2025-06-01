@@ -6,7 +6,15 @@ import useSWR from 'swr'
 
 const Sidebar = () => {
   const { toggleDrawer } = useLayoutService()
-  const { data: categories, error } = useSWR('/api/products/categories')
+
+  //   const { data: categories, error } = useSWR('/api/products/categories')
+
+  const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+  const { data: categories, error } = useSWR(
+    '/api/products/categories',
+    fetcher
+  )
 
   if (error) return error.message
   if (!categories) return 'Loading...'
