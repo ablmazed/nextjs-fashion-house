@@ -26,8 +26,8 @@ const Header = () => {
             <Link href="/" className="btn btn-ghost text-lg">
               Next Amazona V2
             </Link>
-            <Menu />
           </div>
+          <Menu />
         </div>
         <div className="bg-base-300 block md:hidden text-center pb-3">
           SearchBox
