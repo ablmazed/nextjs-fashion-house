@@ -18,6 +18,9 @@ const Menu = () => {
 
   const { data: session } = useSession()
 
+  const handleClick = () => {
+    ;(document.activeElement as HTMLElement).blur()
+  }
   return (
     <>
       <div className="hidden md:block">Search Box</div>
@@ -58,6 +61,9 @@ const Menu = () => {
                     tabIndex={0}
                     className="menu dropdown-content z-[1] p-2 shadow bg-base-300 rounded-box w-52 "
                   >
+                    <li onClick={handleClick}>
+                      <Link href="/order-history">Order history </Link>
+                    </li>
                     <li>
                       <button type="button" onClick={signoutHandler}>
                         Sign out
