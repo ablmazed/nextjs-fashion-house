@@ -70,6 +70,11 @@ const Menu = () => {
                     <li onClick={handleClick}>
                       <Link href="/order-history">Order history </Link>
                     </li>
+                    {session.user.isAdmin && (
+                      <li onClick={handleClick}>
+                        <Link href="/admin/dashboard">Admin Dashboard</Link>
+                      </li>
+                    )}
 
                     <li>
                       <button type="button" onClick={signoutHandler}>
