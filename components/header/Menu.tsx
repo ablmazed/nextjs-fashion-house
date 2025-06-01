@@ -62,8 +62,12 @@ const Menu = () => {
                     className="menu dropdown-content z-[1] p-2 shadow bg-base-300 rounded-box w-52 "
                   >
                     <li onClick={handleClick}>
+                      <Link href="/profile">Profile</Link>
+                    </li>
+                    <li onClick={handleClick}>
                       <Link href="/order-history">Order history </Link>
                     </li>
+
                     <li>
                       <button type="button" onClick={signoutHandler}>
                         Sign out

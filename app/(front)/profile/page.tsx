@@ -1,16 +1,10 @@
-import { auth } from '@/lib/auth'
-import { redirect } from 'next/navigation'
+import { Metadata } from 'next'
+import Form from './Form'
 
-export default async function ProfilePage() {
-  const session = await auth()
+export const metadata: Metadata = {
+  title: 'Profile',
+}
 
-  if (!session?.user) {
-    redirect('/signin?callbackUrl=/profile')
-  }
-
-  return (
-    <div className="p-4">
-      <h1>Welcome, {session.user.name}</h1>
-    </div>
-  )
+export default async function Profile() {
+  return <Form />
 }
