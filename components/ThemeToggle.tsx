@@ -1,5 +1,6 @@
 'use client' // if you're using App Router
 
+import { Moon, Sun } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 const ThemeToggle = () => {
@@ -20,7 +21,7 @@ const ThemeToggle = () => {
 
   return (
     <button onClick={toggleTheme} className="btn btn-sm btn-outline">
-      {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
+      {theme === 'light' ? <Sun /> : <Moon />}
     </button>
   )
 }
