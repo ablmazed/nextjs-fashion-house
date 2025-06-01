@@ -3,6 +3,7 @@ import dbConnect from '@/lib/dbConnect'
 import OrderModel from '@/lib/models/OrderModel'
 import { paypal } from '@/lib/paypal'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const POST = auth(async (...request: any) => {
   const [req, { params }] = request
   if (!req.auth) {
@@ -20,6 +21,7 @@ export const POST = auth(async (...request: any) => {
     try {
       const paypalOrder = await paypal.createOrder(order.totalPrice)
       return Response.json(paypalOrder)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       return Response.json(
         { message: err.message },
