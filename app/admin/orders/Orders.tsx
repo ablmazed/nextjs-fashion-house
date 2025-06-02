@@ -4,7 +4,8 @@ import Link from 'next/link'
 import useSWR from 'swr'
 
 export default function Orders() {
-  const { data: orders, error } = useSWR(`/api/admin/orders`)
+  const fetcher = (url: string) => fetch(url).then((res) => res.json())
+  const { data: orders, error } = useSWR(`/api/admin/orders`, fetcher)
   if (error) return 'An error has occurred.'
   if (!orders) return 'Loading...'
 
