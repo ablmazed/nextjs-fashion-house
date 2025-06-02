@@ -26,7 +26,7 @@ const ProductModel =
 export default ProductModel
 
 export type Product = {
-  _id?: string
+  _id: string
   name: string
   slug: string
   category: string
