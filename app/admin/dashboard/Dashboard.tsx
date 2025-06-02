@@ -43,7 +43,7 @@ export const options = {
 
 const Dashboard = () => {
   const fetcher = (url: string) => fetch(url).then((res) => res.json())
-  const { data: summary, error } = useSWR(`api/admin/orders/summary`, fetcher)
+  const { data: summary, error } = useSWR(`/api/admin/orders/summary`, fetcher)
 
   if (error) return error.message
   if (!summary) return 'Loading...'
