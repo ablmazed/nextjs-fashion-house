@@ -8,7 +8,8 @@ import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 
 export default function Product() {
-  const { data: products, error } = useSWR(`/api/admin/products`)
+  const fetcher = (url: string) => fetch(url).then((res) => res.json())
+  const { data: products, error } = useSWR(`/api/admin/products`, fetcher)
   const router = useRouter()
 
   const { trigger: deleteProduct } = useSWRMutation(
