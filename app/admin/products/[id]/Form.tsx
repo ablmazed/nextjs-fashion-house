@@ -1,17 +1,18 @@
 'use client'
-import useSWRMutation from 'swr/mutation'
-import useSWR from 'swr'
-import toast from 'react-hot-toast'
+
 import Link from 'next/link'
-import { ValidationRule, useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { ValidationRule, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import useSWR from 'swr'
+import useSWRMutation from 'swr/mutation'
+
 import { Product } from '@/lib/models/ProductModel'
 import { formatId } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
 
 export default function ProductEditForm({ productId }: { productId: string }) {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json())
-  const { data, error } = useSWR(`/api/admin/products/${productId}`, fetcher)
+  const { data: product, error } = useSWR(`/api/admin/products/${productId}`)
   const router = useRouter()
   const { trigger: updateProduct, isMutating: isUpdating } = useSWRMutation(
     `/api/admin/products/${productId}`,
@@ -39,16 +40,16 @@ export default function ProductEditForm({ productId }: { productId: string }) {
   } = useForm<Product>()
 
   useEffect(() => {
-    if (!data) return
-    setValue('name', data.name)
-    setValue('slug', data.slug)
-    setValue('price', data.price)
-    setValue('image', data.image)
-    setValue('category', data.category)
-    setValue('brand', data.brand)
-    setValue('countInStock', data.countInStock)
-    setValue('description', data.description)
-  }, [data, setValue])
+    if (!product) return
+    setValue('name', product.name)
+    setValue('slug', product.slug)
+    setValue('price', product.price)
+    setValue('image', product.image)
+    setValue('category', product.category)
+    setValue('brand', product.brand)
+    setValue('countInStock', product.countInStock)
+    setValue('description', product.description)
+  }, [product, setValue])
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const formSubmit = async (formData: any) => {
@@ -56,7 +57,8 @@ export default function ProductEditForm({ productId }: { productId: string }) {
   }
 
   if (error) return error.message
-  if (!data) return 'Loading...'
+
+  if (!product) return 'Loading...'
 
   const FormInput = ({
     id,
@@ -69,7 +71,7 @@ export default function ProductEditForm({ productId }: { productId: string }) {
     required?: boolean
     pattern?: ValidationRule<RegExp>
   }) => (
-    <div className="md:flex mb-6">
+    <div className="mb-6 md:flex">
       <label className="label md:w-1/5" htmlFor={id}>
         {name}
       </label>
@@ -112,6 +114,7 @@ export default function ProductEditForm({ productId }: { productId: string }) {
         }
       )
       const data = await res.json()
+      console.log(data.secure_url)
       setValue('image', data.secure_url)
       toast.success('File uploaded successfully', {
         id: toastId,
@@ -126,13 +129,13 @@ export default function ProductEditForm({ productId }: { productId: string }) {
 
   return (
     <div>
-      <h1 className="text-2xl py-4">Edit Product {formatId(productId)}</h1>
+      <h1 className="py-4 text-2xl">Edit Product {formatId(productId)}</h1>
       <div>
         <form onSubmit={handleSubmit(formSubmit)}>
           <FormInput name="Name" id="name" required />
           <FormInput name="Slug" id="slug" required />
           <FormInput name="Image" id="image" required />
-          <div className="md:flex mb-6">
+          <div className="mb-6 md:flex">
             <label className="label md:w-1/5" htmlFor="imageFile">
               Upload Image
             </label>

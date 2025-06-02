@@ -1,9 +1,10 @@
-import { auth } from '@/lib/auth'
 import cloudinary from 'cloudinary'
+
+import { auth } from '@/lib/auth'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const POST = auth(async (req: any) => {
-  if (!req.auth) {
+  if (!req.auth || !req.auth.user?.isAdmin) {
     return Response.json(
       { message: 'unauthorized' },
       {
