@@ -12,7 +12,11 @@ import { Product } from '@/lib/models/ProductModel'
 import { formatId } from '@/lib/utils'
 
 export default function ProductEditForm({ productId }: { productId: string }) {
-  const { data: product, error } = useSWR(`/api/admin/products/${productId}`)
+  const fetcher = (url: string) => fetch(url).then((res) => res.json())
+  const { data: product, error } = useSWR(
+    `/api/admin/products/${productId}`,
+    fetcher
+  )
   const router = useRouter()
   const { trigger: updateProduct, isMutating: isUpdating } = useSWRMutation(
     `/api/admin/products/${productId}`,
