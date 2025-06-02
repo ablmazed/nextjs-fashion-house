@@ -106,7 +106,7 @@ export default function Product() {
                       type="button"
                       className="btn btn-ghost btn-sm"
                     >
-                      Delet
+                      Delete
                     </button>
                   </td>
                 </tr>
