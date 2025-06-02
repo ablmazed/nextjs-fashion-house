@@ -7,7 +7,8 @@ import useSWRMutation from 'swr/mutation'
 import { User } from '@/lib/models/UserModel'
 
 export default function Users() {
-  const { data: users, error } = useSWR(`/api/admin/users`)
+  const fetcher = (url: string) => fetch(url).then((res) => res.json())
+  const { data: users, error } = useSWR(`/api/admin/users`, fetcher)
 
   const { trigger: deleteUser } = useSWRMutation(
     `/api/admin/users`,
