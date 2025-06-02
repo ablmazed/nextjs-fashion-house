@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import ThemeToggle from '../ThemeToggle'
+import { SearchBox } from './SearchBox'
 
 const Menu = () => {
   const { items, init } = useCartService()
@@ -25,6 +26,9 @@ const Menu = () => {
   }
   return (
     <>
+      <div className="hidden md:block">
+        <SearchBox />
+      </div>
       <div className="hidden md:block">Search Box</div>
       <div>
         <ul className="flex items-stretch">
