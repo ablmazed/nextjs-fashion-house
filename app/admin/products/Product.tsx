@@ -103,7 +103,7 @@ export default function Products() {
                     type="button"
                     className="btn btn-ghost btn-sm"
                   >
-                    Delete
+                    Deletes
                   </button>
                 </td>
               </tr>
@@ -113,4 +113,5 @@ export default function Products() {
       </div>
     </div>
   )
-}
+  }
+

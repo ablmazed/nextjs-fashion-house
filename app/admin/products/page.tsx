@@ -1,5 +1,5 @@
 import AdminLayout from '@/components/admin/AdminLayout'
-import Products from './Products'
+import Products from './Product'
 
 export const metadata = {
   title: 'Admin Products',
