@@ -22,18 +22,25 @@ const prices = [
 
 const ratings = [5, 4, 3, 2, 1]
 
-export async function generateMetadata({
-  searchParams: { q = 'all', category = 'all', price = 'all', rating = 'all' },
-}: {
-  searchParams: {
-    q: string
-    category: string
-    price: string
-    rating: string
-    sort: string
-    page: string
-  }
-}) {
+type Props = {
+  searchParams: Promise<{
+    q?: string
+    category?: string
+    price?: string
+    rating?: string
+    sort?: string
+    page?: string
+  }>
+}
+
+export async function generateMetadata({ searchParams }: Props) {
+  const {
+    q = 'all',
+    category = 'all',
+    price = 'all',
+    rating = 'all',
+  } = await searchParams
+
   if (
     (q !== 'all' && q !== '') ||
     category !== 'all' ||
@@ -53,25 +60,15 @@ export async function generateMetadata({
   }
 }
 
-export default async function SearchPage({
-  searchParams: {
+export default async function SearchPage({ searchParams }: Props) {
+  const {
     q = 'all',
     category = 'all',
     price = 'all',
     rating = 'all',
-    sort = 'newest',
-    page = '1',
-  },
-}: {
-  searchParams: {
-    q: string
-    category: string
-    price: string
-    rating: string
-    sort: string
-    page: string
-  }
-}) {
+    sort = '',
+    page = '',
+  } = await searchParams
   const getFilterUrl = ({
     c,
     s,
