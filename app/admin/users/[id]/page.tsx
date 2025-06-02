@@ -1,16 +1,24 @@
 import AdminLayout from '@/components/admin/AdminLayout'
 import Form from './Form'
 
-export function generateMetadata({ params }: { params: { id: string } }) {
+type Props = {
+  params: Promise<{
+    id: string
+  }>
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { id } = await params
   return {
-    title: `Edit User ${params.id}`,
+    title: `Edit User ${id}`,
   }
 }
 
-export default function OrderHistory({ params }: { params: { id: string } }) {
+export default async function OrderHistory({ params }: Props) {
+  const { id } = await params
   return (
     <AdminLayout activeItem="products">
-      <Form userId={params.id} />
+      <Form userId={id} />
     </AdminLayout>
   )
 }
