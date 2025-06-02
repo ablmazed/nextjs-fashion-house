@@ -10,7 +10,8 @@ import { formatId } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 
 export default function ProductEditForm({ productId }: { productId: string }) {
-  const { data, error } = useSWR(`/api/admin/products/${productId}`)
+  const fetcher = (url: string) => fetch(url).then((res) => res.json())
+  const { data, error } = useSWR(`/api/admin/products/${productId}`, fetcher)
   const router = useRouter()
   const { trigger: updateProduct, isMutating: isUpdating } = useSWRMutation(
     `/api/admin/products/${productId}`,
