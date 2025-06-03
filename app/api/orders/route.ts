@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import dbConnect from '@/lib/dbConnect'
 import ProductModel from '@/lib/models/ProductModel'
 import OrderModel, { OrderItem } from '@/lib/models/OrderModel'
@@ -20,6 +18,7 @@ const calcPrices = (orderItems: OrderItem[]) => {
   return { itemsPrice, shippingPrice, taxPrice, totalPrice }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const POST = auth(async (req: any) => {
   if (!req.auth) {
     return Response.json(
@@ -70,6 +69,7 @@ export const POST = auth(async (req: any) => {
         status: 201,
       }
     )
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return Response.json(
       { message: err.message },
