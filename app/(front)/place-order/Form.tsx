@@ -48,7 +48,7 @@ const Form = () => {
         return router.push(`/order/${data.order._id}`)
       } else {
         toast.error(data.message)
-        return router.push(`/order/${data.order._id}`)
+        return router.push(`/order}`)
       }
     }
   )
