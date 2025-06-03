@@ -51,6 +51,9 @@ export const POST = auth(async (req: any) => {
     const { itemsPrice, taxPrice, shippingPrice, totalPrice } =
       calcPrices(dbOrderItems)
 
+    console.log('Received payload:', payload)
+    console.log('Auth user:', user)
+
     const newOrder = new OrderModel({
       items: dbOrderItems,
       itemsPrice,

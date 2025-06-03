@@ -42,13 +42,18 @@ const Form = () => {
       })
       const data = await res.json()
 
-      if (res.ok) {
-        clear()
-        toast.success('Order placed successfully')
-        return router.push(`/order/${data.order._id}`)
-      } else {
+      try {
+        if (res.ok) {
+          clear()
+          toast.success('Order placed successfully')
+          return router.push(`/order/${data.order._id}`)
+        } else {
+          toast.error('Something went wrong!')
+        }
+      } catch (error) {
+        console.error('Fetch error:', error)
         toast.error(data.message)
-        return router.push(`/order`)
+        return router.push(`/order/`)
       }
     }
   )
