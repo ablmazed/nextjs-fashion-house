@@ -29,7 +29,7 @@ const Menu = () => {
       <div className="hidden md:block">
         <SearchBox />
       </div>
-      <div className="hidden md:block">Search Box</div>
+
       <div>
         <ul className="flex items-stretch">
           <ThemeToggle />
